@@ -7,4 +7,15 @@ import lombok.Data;
 public class TwoFactorAuth {
     private boolean isEnabled=false;
     private VertifcationType sendTo;
+
+    public boolean isEnabled() {
+        return isEnabled;
+    }
+
+    public void setEnabled(boolean enabled) {
+        this.isEnabled = enabled;
+    }
+
+
+
 }
