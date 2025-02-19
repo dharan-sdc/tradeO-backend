@@ -1,6 +1,6 @@
 package com.sdc.tradeo.domain;
 
-public enum VertifcationType {
+public enum VerificationType {
     MOBILE,
     EMAIL
 }
