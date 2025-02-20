@@ -1,5 +1,6 @@
 package com.sdc.tradeo.controller;
 
+import com.sdc.tradeo.Service.OrderService;
 import com.sdc.tradeo.Service.UserService;
 import com.sdc.tradeo.Service.WalletService;
 import com.sdc.tradeo.Service.WalletServiceImpl;
@@ -49,7 +50,7 @@ public class WalletController {
             @PathVariable Long orderId
     ) throws Exception{
         User user = userService.findUserProfileByJwt(jwt);
-        Order order = orderService.getOrderById(orderId);
+        Order order = OrderService.getOrderById(orderId);
         Wallet wallet = walletService.payOrderPayment(order, user);
 
         return new ResponseEntity<>(wallet, HttpStatus.ACCEPTED);

@@ -1,0 +1,10 @@
+package com.sdc.tradeo.respository;
+
+import com.sdc.tradeo.model.Order;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import java.util.List;
+
+public interface OrderRepository extends JpaRepository<Order, Long> {
+    List<Order> findByUserId(Long userId);
+}
