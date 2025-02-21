@@ -1,12 +1,11 @@
 package com.sdc.tradeo.controller;
 
 import com.sdc.tradeo.Service.OrderService;
+import com.sdc.tradeo.Service.PaymentService;
 import com.sdc.tradeo.Service.UserService;
 import com.sdc.tradeo.Service.WalletService;
-import com.sdc.tradeo.model.Order;
-import com.sdc.tradeo.model.User;
-import com.sdc.tradeo.model.Wallet;
-import com.sdc.tradeo.model.WalletTransaction;
+import com.sdc.tradeo.model.*;
+import com.sdc.tradeo.response.PaymentResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +24,10 @@ public class WalletController {
     @Autowired
     private OrderService orderService;
 
-    @GetMapping("")
+    @Autowired
+    private PaymentService paymentService;
+
+    @GetMapping("/api/wallet")
     public ResponseEntity<Wallet> getUserWallet(
             @RequestHeader("Authorization") String jwt) throws Exception {
         User user = userService.findUserProfileByJwt(jwt);
@@ -33,7 +35,7 @@ public class WalletController {
         return new ResponseEntity<>(wallet, HttpStatus.ACCEPTED);
     }
 
-    @PostMapping("/{walletId}/transfer")
+    @PutMapping("/api/wallet/{walletId}/transfer")
     public ResponseEntity<Wallet> walletToWalletTransfer(
             @RequestHeader("Authorization") String jwt,
             @PathVariable Long walletId,
@@ -44,13 +46,34 @@ public class WalletController {
         return new ResponseEntity<>(wallet, HttpStatus.ACCEPTED);
     }
 
-    @PostMapping("/order/{orderId}/transfer")
+    @PutMapping("/api/wallet/order/{orderId}/pay")
     public ResponseEntity<Wallet> payOrderPayment(
             @RequestHeader("Authorization") String jwt,
             @PathVariable Long orderId) throws Exception {
+
         User user = userService.findUserProfileByJwt(jwt);
         Order order = orderService.getOrderById(orderId);
         Wallet wallet = walletService.payOrderPayment(order, user);
+
+        return new ResponseEntity<>(wallet, HttpStatus.ACCEPTED);
+    }
+    @PutMapping("/api/wallet/")
+    public ResponseEntity<Wallet> addBalanceToWallet(
+            @RequestHeader("Authorization") String jwt,
+            @RequestParam(name = "order_id") Long orderId,
+            @RequestParam(name = "payment_id") String paymentId
+           ) throws Exception {
+
+        User user = userService.findUserProfileByJwt(jwt);
+        Wallet wallet = walletService.getUserWallet(user);
+        PaymentOrder order = paymentService.getPaymentOrderById(orderId);
+
+        Boolean status = paymentService.ProceedPaymentOrder(order, paymentId);
+
+        if (status) {
+            wallet = walletService.addBalance(wallet, order.getAmount());
+        }
+
         return new ResponseEntity<>(wallet, HttpStatus.ACCEPTED);
     }
 }
