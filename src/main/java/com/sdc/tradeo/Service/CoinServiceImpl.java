@@ -51,7 +51,7 @@ public class CoinServiceImpl implements CoinService {
 
     @Override
     public String getMarketChart(String coinId, int days) throws Exception {
-        String url="https://api.coingecko.com/api/v3/coins/"+coinId+"markets_chart?vs_currency=inr&days"+days;
+        String url="https://api.coingecko.com/api/v3/coins/"+coinId+"/market_chart?vs_currency=inr&days="+days;
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -84,25 +84,29 @@ public class CoinServiceImpl implements CoinService {
             coin.setSymbol(jsonNode.get("symbol").asText());
             coin.setImage(jsonNode.get("image").get("large").asText());
 
-            JsonNode marketData = jsonNode.get("market_data");
+            JsonNode marketData = jsonNode.path("market_data"); // Use path() to avoid null
 
-            coin.setCurrentPrice(marketData.get("current_price").get("inr").asDouble());
-            coin.setMarketCap(marketData.get("market_cap").get("inr").asLong());
-            coin.setMarketCapRank(marketData.get("market_cap_rank").asInt());
-            coin.setTotalVolume(marketData.get("total_volume").get("inr").asLong());
-            coin.setHigh24h(marketData.get("high24h").get("inr").asDouble());
-            coin.setLow24h(marketData.get("low_24h").get("inr").asDouble());
-            coin.setPriceChange24h(marketData.get("price_change_24h").asDouble());
-            coin.setPriceChangePercentage24h(marketData.get("price_change_percentage_24h").asDouble());
-            coin.setMarketCapChange24h(marketData.get("market_cap_change_24h").asLong());
-            coin.setMarketCapChangePercentage24h(marketData.get("market_cap_change_percentage_24h").asDouble());
+            coin.setCurrentPrice(marketData.path("current_price").path("inr").asDouble(0.0));
+            coin.setMarketCap(marketData.path("market_cap").path("inr").asLong(0));
+            coin.setMarketCapRank(marketData.path("market_cap_rank").asInt(0));
+            coin.setTotalVolume(marketData.path("total_volume").path("inr").asLong(0));
+            coin.setHigh24h(marketData.path("high_24h").path("inr").asDouble(0.0));
+            coin.setLow24h(marketData.path("low_24h").path("inr").asDouble(0.0));
+            coin.setPriceChange24h(marketData.path("price_change_24h").asDouble(0.0));
+            coin.setPriceChangePercentage24h(marketData.path("price_change_percentage_24h").asDouble(0.0));
+            coin.setMarketCapChange24h(marketData.path("market_cap_change_24h").asLong(0));
+            coin.setMarketCapChangePercentage24h(marketData.path("market_cap_change_percentage_24h").asDouble(0.0));
 
-            coin.setTotalSupply(marketData.get("total_supply").get("inr").asLong());
+            // Fix for total_supply (no INR key expected)
+            coin.setTotalSupply(marketData.path("total_supply").asLong(0));
+
             coinRepository.save(coin);
 
             return response.getBody();
 
         } catch (HttpClientErrorException | HttpServerErrorException e) {
+            System.out.println("error -- " + e.getMessage());
+
             throw new Exception(e.getMessage());
         }
     }
