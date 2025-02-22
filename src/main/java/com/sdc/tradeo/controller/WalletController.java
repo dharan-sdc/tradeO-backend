@@ -1,11 +1,10 @@
 package com.sdc.tradeo.controller;
 
-import com.sdc.tradeo.Service.OrderService;
-import com.sdc.tradeo.Service.PaymentService;
-import com.sdc.tradeo.Service.UserService;
-import com.sdc.tradeo.Service.WalletService;
+import com.sdc.tradeo.service.OrderService;
+import com.sdc.tradeo.service.PaymentService;
+import com.sdc.tradeo.service.UserService;
+import com.sdc.tradeo.service.WalletService;
 import com.sdc.tradeo.model.*;
-import com.sdc.tradeo.response.PaymentResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -59,6 +58,7 @@ public class WalletController {
 
         return new ResponseEntity<>(wallet, HttpStatus.ACCEPTED);
     }
+
     @PutMapping("/api/wallet/deposit")
     public ResponseEntity<Wallet> addBalanceToWallet(
             @RequestHeader("Authorization") String jwt,

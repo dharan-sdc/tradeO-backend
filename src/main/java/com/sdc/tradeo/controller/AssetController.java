@@ -1,7 +1,7 @@
 package com.sdc.tradeo.controller;
 
-import com.sdc.tradeo.Service.AssetService;
-import com.sdc.tradeo.Service.UserService;
+import com.sdc.tradeo.service.AssetService;
+import com.sdc.tradeo.service.UserService;
 import com.sdc.tradeo.model.Asset;
 import com.sdc.tradeo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;

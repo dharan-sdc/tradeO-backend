@@ -2,8 +2,9 @@ package com.sdc.tradeo.model;
 
 import com.sdc.tradeo.domain.WithdrawalStatus;
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data

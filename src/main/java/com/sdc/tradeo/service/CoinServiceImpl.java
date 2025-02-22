@@ -1,4 +1,4 @@
-package com.sdc.tradeo.Service;
+package com.sdc.tradeo.service;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonNode;

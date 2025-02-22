@@ -1,8 +1,8 @@
 package com.sdc.tradeo.controller;
 
-import com.sdc.tradeo.Service.CoinService;
-import com.sdc.tradeo.Service.UserService;
-import com.sdc.tradeo.Service.WatchListService;
+import com.sdc.tradeo.service.CoinService;
+import com.sdc.tradeo.service.UserService;
+import com.sdc.tradeo.service.WatchListService;
 import com.sdc.tradeo.model.Coin;
 import com.sdc.tradeo.model.User;
 import com.sdc.tradeo.model.WatchList;

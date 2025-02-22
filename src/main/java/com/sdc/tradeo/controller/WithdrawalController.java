@@ -1,13 +1,14 @@
 package com.sdc.tradeo.controller;
 
-import com.sdc.tradeo.Service.UserService;
-import com.sdc.tradeo.Service.WalletService;
-import com.sdc.tradeo.Service.WithdrawalService;
+import com.sdc.tradeo.domain.WalletTransactionType;
+import com.sdc.tradeo.model.WalletTransaction;
+import com.sdc.tradeo.service.TransactionService;
+import com.sdc.tradeo.service.UserService;
+import com.sdc.tradeo.service.WalletService;
+import com.sdc.tradeo.service.WithdrawalService;
 import com.sdc.tradeo.model.User;
 import com.sdc.tradeo.model.Wallet;
-import com.sdc.tradeo.model.WalletTransaction;
 import com.sdc.tradeo.model.Withdrawal;
-import com.stripe.service.tax.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -26,8 +27,8 @@ public class WithdrawalController {
     @Autowired
     private UserService userService;
 
-//    @Autowired
-//    private TransactionService transactionService;
+    @Autowired
+    private TransactionService transactionService;
 
     @PostMapping("/api/withdrawal/{amount}")
     public ResponseEntity<?> withdrawalRequest(
@@ -38,15 +39,18 @@ public class WithdrawalController {
 
         Withdrawal withdrawal = withdrawalService.requestWithdrawal(amount, user);
         walletService.addBalance(userWallet, -withdrawal.getAmount());
+
+        WalletTransaction walletTransaction=transactionService.createTransaction(
+                userWallet,
+                WalletTransactionType.WITHDRAWAL,null,
+                "bank account withdrawal",
+                withdrawal.getAmount()
+        );
+
         return new ResponseEntity<>(withdrawal, HttpStatus.OK);
     }
 
-//    WalletTransaction walletTransaction=transactionService.createTransaction(
-//            userWallet,
-//            WalletTransaction.WITHDRAWAL,null,
-//            "bank account withdrawal",
-//            withdrawal.getAmount()
-//    );
+
 
     @PatchMapping("/api/admin/withdrawal/{id}/proceed/{accept}")
     public ResponseEntity<?> proceedWithdrawal(

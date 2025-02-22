@@ -1,9 +1,8 @@
-package com.sdc.tradeo.Service;
+package com.sdc.tradeo.service;
 
 import com.sdc.tradeo.model.Order;
 import com.sdc.tradeo.model.User;
 import com.sdc.tradeo.model.Wallet;
-import jakarta.transaction.Transaction;
 
 public interface WalletService {
     Wallet getUserWallet(User user);
@@ -15,7 +14,6 @@ public interface WalletService {
     Wallet walletToWalletTransfer(User sender,Wallet receiverWallet,Long amount) throws Exception;
 
     Wallet payOrderPayment(Order order, User user) throws Exception;
-
 
 
 }

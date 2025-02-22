@@ -2,7 +2,7 @@ package com.sdc.tradeo.controller;
 
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sdc.tradeo.Service.CoinService;
+import com.sdc.tradeo.service.CoinService;
 import com.sdc.tradeo.model.Coin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -35,6 +35,7 @@ public class CoinController {
         JsonNode jsonNode = objectMapper.readTree(res);
         return new ResponseEntity<>(jsonNode, HttpStatus.ACCEPTED);
     }
+
     @GetMapping("/search")
     public ResponseEntity<JsonNode> searchCoins(@RequestParam("q") String keyword) throws Exception {
         String res = coinService.searchCoins(keyword);

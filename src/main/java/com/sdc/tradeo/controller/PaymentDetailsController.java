@@ -1,7 +1,7 @@
 package com.sdc.tradeo.controller;
 
-import com.sdc.tradeo.Service.PaymentDetailsService;
-import com.sdc.tradeo.Service.UserService;
+import com.sdc.tradeo.service.PaymentDetailsService;
+import com.sdc.tradeo.service.UserService;
 import com.sdc.tradeo.model.PaymentDetails;
 import com.sdc.tradeo.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,9 +19,6 @@ public class PaymentDetailsController {
     @Autowired
     private PaymentDetailsService paymentDetailsService;
 
-//    @Autowired
-//    private PaymentDetailsRequest paymentDetailsRequest;
-//    //7.09
     @PostMapping("/payment-details")
     public ResponseEntity<PaymentDetails> addPaymentDeatils(
             @RequestBody PaymentDetails paymentDetailsRequest,

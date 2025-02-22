@@ -1,11 +1,10 @@
-package com.sdc.tradeo.Service;
+package com.sdc.tradeo.service;
 
 import com.sdc.tradeo.model.TwoFactorOTP;
 import com.sdc.tradeo.model.User;
 import com.sdc.tradeo.respository.TwoFactorOtpRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Optional;
 import java.util.UUID;

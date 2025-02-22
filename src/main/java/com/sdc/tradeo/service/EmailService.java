@@ -1,4 +1,4 @@
-package com.sdc.tradeo.Service;
+package com.sdc.tradeo.service;
 
 import jakarta.mail.MessagingException;
 import jakarta.mail.internet.MimeMessage;

@@ -1,4 +1,4 @@
-package com.sdc.tradeo.Service;
+package com.sdc.tradeo.service;
 
 import com.razorpay.Payment;
 import com.razorpay.PaymentLink;

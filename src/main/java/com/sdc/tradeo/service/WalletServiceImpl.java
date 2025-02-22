@@ -1,16 +1,15 @@
-package com.sdc.tradeo.Service;
+package com.sdc.tradeo.service;
 
 import com.sdc.tradeo.domain.OrderType;
 import com.sdc.tradeo.model.Order;
 import com.sdc.tradeo.model.User;
 import com.sdc.tradeo.model.Wallet;
 import com.sdc.tradeo.respository.WalletRepository;
-import io.micrometer.observation.transport.SenderContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.Optional;
+
 @Service
 public class WalletServiceImpl implements WalletService {
 
@@ -87,4 +86,5 @@ public class WalletServiceImpl implements WalletService {
         }
         return walletRepository.save(wallet);
     }
+
 }

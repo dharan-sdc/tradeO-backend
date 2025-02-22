@@ -1,10 +1,10 @@
 package com.sdc.tradeo.controller;
 
 import com.sdc.tradeo.request.ForgetPasswordTokenRequest;
-import com.sdc.tradeo.Service.EmailService;
-import com.sdc.tradeo.Service.ForgetPasswordService;
-import com.sdc.tradeo.Service.UserService;
-import com.sdc.tradeo.Service.VerificationCodeService;
+import com.sdc.tradeo.service.EmailService;
+import com.sdc.tradeo.service.ForgetPasswordService;
+import com.sdc.tradeo.service.UserService;
+import com.sdc.tradeo.service.VerificationCodeService;
 import com.sdc.tradeo.domain.VerificationType;
 import com.sdc.tradeo.model.ForgetPasswordToken;
 import com.sdc.tradeo.model.User;

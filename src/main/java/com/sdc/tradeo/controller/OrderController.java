@@ -1,16 +1,14 @@
 package com.sdc.tradeo.controller;
 
-import com.sdc.tradeo.Service.CoinService;
-import com.sdc.tradeo.Service.OrderService;
-import com.sdc.tradeo.Service.UserService;
+import com.sdc.tradeo.service.CoinService;
+import com.sdc.tradeo.service.OrderService;
+import com.sdc.tradeo.service.UserService;
 import com.sdc.tradeo.domain.OrderType;
 import com.sdc.tradeo.model.Coin;
 import com.sdc.tradeo.model.Order;
 import com.sdc.tradeo.model.User;
-import com.sdc.tradeo.model.WalletTransaction;
 import com.sdc.tradeo.request.CreateOrderRequest;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -27,9 +25,7 @@ public class OrderController {
     @Autowired
     private CoinService coinService;
 
-    //    @Autowired
-//    private WalletTransactionService walletTransactionService;
-//    //private
+
     @PostMapping("/pay")
     public ResponseEntity<Order> payOrderPayment(
             @RequestHeader("Authorization") String jwt,

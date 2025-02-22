@@ -5,5 +5,13 @@ public enum WalletTransactionType {
     WALLET_TRANSFER,
     ADD_MONEY,
     BUY_ASSET,
-    SELL_ASSET
+    SELL_ASSET,
+    DEPOSIT,
+    TRANSFER
 }
+//
+//public enum WalletTransactionType {
+//    DEPOSIT,
+//    WITHDRAWAL, // Ensure this exists
+//    TRANSFER
+//}

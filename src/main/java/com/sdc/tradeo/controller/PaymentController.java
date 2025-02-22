@@ -1,7 +1,7 @@
 package com.sdc.tradeo.controller;
 
-import com.sdc.tradeo.Service.PaymentService;
-import com.sdc.tradeo.Service.UserService;
+import com.sdc.tradeo.service.PaymentService;
+import com.sdc.tradeo.service.UserService;
 import com.sdc.tradeo.domain.PaymentMethod;
 import com.sdc.tradeo.model.PaymentOrder;
 import com.sdc.tradeo.model.User;

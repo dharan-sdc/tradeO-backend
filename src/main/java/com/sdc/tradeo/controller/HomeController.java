@@ -11,6 +11,7 @@ public class HomeController {
     public String home(){
         return "Welcome to my home api";
     }
+
     @GetMapping("/api/home")
     public String secure(){
         return "Welcom";

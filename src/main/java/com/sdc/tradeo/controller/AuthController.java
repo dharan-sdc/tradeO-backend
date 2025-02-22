@@ -1,10 +1,10 @@
 package com.sdc.tradeo.controller;
 
 
-import com.sdc.tradeo.Service.CustomerUserDetailsService;
-import com.sdc.tradeo.Service.EmailService;
-import com.sdc.tradeo.Service.TwoFactorOtpService;
-import com.sdc.tradeo.Service.WatchListService;
+import com.sdc.tradeo.service.CustomerUserDetailsService;
+import com.sdc.tradeo.service.EmailService;
+import com.sdc.tradeo.service.TwoFactorOtpService;
+import com.sdc.tradeo.service.WatchListService;
 import com.sdc.tradeo.config.JwtProvider;
 import com.sdc.tradeo.model.TwoFactorOTP;
 import com.sdc.tradeo.model.User;
@@ -73,6 +73,7 @@ public class AuthController {
 
         return new ResponseEntity<>(res, HttpStatus.CREATED);
     }
+
     @PostMapping("/signin")
     public ResponseEntity<AuthResponse> login(@RequestBody User user) throws Exception {
 

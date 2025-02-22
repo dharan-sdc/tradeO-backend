@@ -1,5 +1,6 @@
 package com.sdc.tradeo.model;
 
+import com.sdc.tradeo.domain.WalletTransactionType;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -21,4 +22,11 @@ public class Wallet {
 
     private BigDecimal balance = BigDecimal.ZERO.setScale(2, RoundingMode.HALF_UP);
 
+    @Enumerated(EnumType.STRING)
+    private WalletTransactionType transactionType;
+
+    private Long transferId;
+    private String purpose;
+    private Long amount;
+    private Long timestamp;
 }
