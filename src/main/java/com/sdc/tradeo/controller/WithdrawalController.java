@@ -7,6 +7,7 @@ import com.sdc.tradeo.model.User;
 import com.sdc.tradeo.model.Wallet;
 import com.sdc.tradeo.model.WalletTransaction;
 import com.sdc.tradeo.model.Withdrawal;
+import com.stripe.service.tax.TransactionService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,9 @@ public class WithdrawalController {
     @Autowired
     private UserService userService;
 
+//    @Autowired
+//    private TransactionService transactionService;
+
     @PostMapping("/api/withdrawal/{amount}")
     public ResponseEntity<?> withdrawalRequest(
             @PathVariable Long amount,
@@ -36,6 +40,13 @@ public class WithdrawalController {
         walletService.addBalance(userWallet, -withdrawal.getAmount());
         return new ResponseEntity<>(withdrawal, HttpStatus.OK);
     }
+
+//    WalletTransaction walletTransaction=transactionService.createTransaction(
+//            userWallet,
+//            WalletTransaction.WITHDRAWAL,null,
+//            "bank account withdrawal",
+//            withdrawal.getAmount()
+//    );
 
     @PatchMapping("/api/admin/withdrawal/{id}/proceed/{accept}")
     public ResponseEntity<?> proceedWithdrawal(

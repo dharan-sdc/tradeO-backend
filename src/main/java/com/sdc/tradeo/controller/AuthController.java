@@ -4,6 +4,7 @@ package com.sdc.tradeo.controller;
 import com.sdc.tradeo.Service.CustomerUserDetailsService;
 import com.sdc.tradeo.Service.EmailService;
 import com.sdc.tradeo.Service.TwoFactorOtpService;
+import com.sdc.tradeo.Service.WatchListService;
 import com.sdc.tradeo.config.JwtProvider;
 import com.sdc.tradeo.model.TwoFactorOTP;
 import com.sdc.tradeo.model.User;
@@ -33,8 +34,10 @@ public class AuthController {
     private TwoFactorOtpService twoFactorOtpService;
 
     @Autowired
-    private EmailService
-    emailService;
+    private WatchListService watchListService;
+
+    @Autowired
+    private EmailService emailService;
 
     @PostMapping("/signup")
     public ResponseEntity<AuthResponse> register(@RequestBody User user) throws Exception {
@@ -51,6 +54,8 @@ public class AuthController {
         newUser.setFullName(user.getFullName());
 
         User savedUser = userRepository.save(newUser);
+
+        watchListService.createWatchList(savedUser);
 
         Authentication auth = new UsernamePasswordAuthenticationToken(
                 user.getEmail(),

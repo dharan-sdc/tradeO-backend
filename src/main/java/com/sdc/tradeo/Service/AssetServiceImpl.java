@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -42,7 +43,13 @@ public class AssetServiceImpl implements AssetService{
 
     @Override
     public List<Asset> getUsersAssets(Long userId) {
-        return null;
+        List<Asset> assets = assetRepository.findByUserId(userId);
+
+        if (assets == null || assets.isEmpty()) {
+            return Collections.emptyList(); // ✅ Return an empty list instead of null
+        }
+
+        return assets;
     }
 
     @Override

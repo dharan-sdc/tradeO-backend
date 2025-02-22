@@ -41,6 +41,7 @@ public class PaymentServiceImpl implements PaymentService{
         paymentOrder.setUser(user);
         paymentOrder.setAmount(amount);
         paymentOrder.setPaymentMethod(paymentMethod);
+        paymentOrder.setStatus(PaymentOrderStatus.PENDING);
         return paymentOrderRepository.save(paymentOrder);
     }
 
@@ -52,7 +53,24 @@ public class PaymentServiceImpl implements PaymentService{
 
     @Override
     public Boolean ProceedPaymentOrder(PaymentOrder paymentOrder, String paymentId) throws RazorpayException {
+        if (paymentOrder == null) {
+            System.out.println("Error: Payment order is null");
+            return false; // Or throw an exception
+        }
+
+        // Ensure status is not null
+        if (paymentOrder.getStatus() == null) {
+            paymentOrder.setStatus(PaymentOrderStatus.PENDING);
+        }
+
         if (paymentOrder.getStatus().equals(PaymentOrderStatus.PENDING)) {
+
+            // Ensure payment method is not null
+            if (paymentOrder.getPaymentMethod() == null) {
+                System.out.println("Error: Payment method is null");
+                return false;
+            }
+
             if (paymentOrder.getPaymentMethod().equals(PaymentMethod.RAZORPAY)) {
                 RazorpayClient razorpay = new RazorpayClient(apiKey, apiSecretKey);
                 Payment payment = razorpay.payments.fetch(paymentId);
@@ -60,65 +78,65 @@ public class PaymentServiceImpl implements PaymentService{
                 Integer amount = payment.get("amount");
                 String status = payment.get("status");
 
-                if (status.equals("captured")) {
+                if ("captured".equals(status)) { // Avoids NullPointerException if status is null
                     paymentOrder.setStatus(PaymentOrderStatus.SUCCESS);
+                    paymentOrderRepository.save(paymentOrder);
                     return true;
                 }
+
                 paymentOrder.setStatus(PaymentOrderStatus.FAILED);
                 paymentOrderRepository.save(paymentOrder);
                 return false;
             }
+
             paymentOrder.setStatus(PaymentOrderStatus.SUCCESS);
             paymentOrderRepository.save(paymentOrder);
             return true;
         }
-        return null;
+        return false;
     }
 
+
     @Override
-    public PaymentResponse createRazorpayPaymentLink(User user, Long amount) throws RazorpayException {
-        Long Amount = amount * 100;
+    public PaymentResponse createRazorpayPaymentLink(User user, Long amount,Long orderId) throws RazorpayException {
+        Long Amount = amount * 100; // Convert to paise
 
-        try{
-
+        try {
             RazorpayClient razorpay = new RazorpayClient(apiKey, apiSecretKey);
 
             JSONObject paymentLinkRequest = new JSONObject();
-            paymentLinkRequest.put("amount", amount);
+            paymentLinkRequest.put("amount", Amount);
             paymentLinkRequest.put("currency", "INR");
 
             JSONObject customer = new JSONObject();
             customer.put("name", user.getFullName());
-
             customer.put("email", user.getEmail());
             paymentLinkRequest.put("customer", customer);
 
-            //create a notify
+            // Create notify
             JSONObject notify = new JSONObject();
             notify.put("email", true);
             paymentLinkRequest.put("notify", notify);
 
-            paymentLinkRequest.put("remainder_enable", true);
+            paymentLinkRequest.put("reminder_enable", true);
 
-            //set call redirect url
-            paymentLinkRequest.put("callback_url", "http://localhost:5173/wallet");
-            paymentLinkRequest.put("callback_method", "get");
+            // Set callback URL (No callback_method needed)
+            paymentLinkRequest.put("callback_url", "http://localhost:5173/wallet?order_id=" + orderId);
 
             PaymentLink payment = razorpay.paymentLink.create(paymentLinkRequest);
 
-            String paymentLinkId = payment.get("id");
             String paymentLinkUrl = payment.get("short_url");
 
             PaymentResponse res = new PaymentResponse();
             res.setPayment_url(paymentLinkUrl);
             return res;
         } catch (RazorpayException e) {
-
             System.out.println("Error creating payment link: " + e.getMessage());
             throw new RazorpayException(e.getMessage());
         }
-
     }
+
+
     @Override
     public PaymentResponse createStripePaymentLink(User user, Long amount, Long orderId) throws StripeException {
         // Set the Stripe API Key
