@@ -43,7 +43,7 @@ public class CoinController {
         return ResponseEntity.ok(jsonNode);
     }
 
-    @GetMapping("/top50")
+    @GetMapping("/top-2")
     public ResponseEntity<JsonNode> getTop50CoinsByMarketCapRank() throws Exception {
         String res = coinService.getTop50CoinsByMarketCapRank();
         JsonNode jsonNode = objectMapper.readTree(res);

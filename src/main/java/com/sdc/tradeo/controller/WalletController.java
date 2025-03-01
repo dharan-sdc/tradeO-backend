@@ -43,9 +43,12 @@ public class WalletController {
             @RequestBody WalletTransaction req) throws Exception {
         User senderUser = userService.findUserProfileByJwt(jwt);
         Wallet receiverWallet = walletService.findWalletById(walletId);
-        Wallet wallet = walletService.walletToWalletTransfer(senderUser, receiverWallet, req.getAmount());
+        Wallet wallet = walletService.walletToWalletTransfer(
+                senderUser, receiverWallet,
+                req.getAmount());
         return new ResponseEntity<>(wallet, HttpStatus.ACCEPTED);
     }
+
 
     @PutMapping("/api/wallet/order/{orderId}/pay")
     public ResponseEntity<Wallet> payOrderPayment(

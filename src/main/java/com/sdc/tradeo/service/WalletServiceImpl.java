@@ -1,20 +1,26 @@
 package com.sdc.tradeo.service;
 
 import com.sdc.tradeo.domain.OrderType;
+import com.sdc.tradeo.domain.WalletTransactionType;
 import com.sdc.tradeo.model.Order;
 import com.sdc.tradeo.model.User;
 import com.sdc.tradeo.model.Wallet;
+import com.sdc.tradeo.model.WalletTransaction;
 import com.sdc.tradeo.respository.WalletRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 @Service
 public class WalletServiceImpl implements WalletService {
 
     @Autowired
     private WalletRepository walletRepository;
+
+    @Autowired
+    private TransactionService transactionService;
 
     @Override
     public Wallet getUserWallet(User user) {
@@ -54,21 +60,46 @@ public class WalletServiceImpl implements WalletService {
         }
 
         if (senderWallet.getBalance() == null) {
-            senderWallet.setBalance(BigDecimal.ZERO); // Avoid null issues
+            senderWallet.setBalance(BigDecimal.ZERO);
         }
 
         if (senderWallet.getBalance().compareTo(BigDecimal.valueOf(amount)) < 0) {
             throw new Exception("Insufficient balance.");
         }
 
+        // Deduct from sender
         senderWallet.setBalance(senderWallet.getBalance().subtract(BigDecimal.valueOf(amount)));
+
+        // Add to receiver
         receiverWallet.setBalance(receiverWallet.getBalance().add(BigDecimal.valueOf(amount)));
 
+        // Save updated wallets
         walletRepository.save(senderWallet);
         walletRepository.save(receiverWallet);
 
-        return senderWallet;
+        // Record transaction for sender
+        WalletTransaction senderTransaction = transactionService.createTransaction(
+                senderWallet,
+                WalletTransactionType.TRANSFER,
+                receiverWallet.getId(), // Store receiver wallet ID as transferId
+                "Wallet-to-wallet transfer to Wallet ID: " + receiverWallet.getId(),
+                amount,
+                LocalDateTime.now()
+        );
+
+        // Record transaction for receiver
+        WalletTransaction receiverTransaction = transactionService.createTransaction(
+                receiverWallet,
+                WalletTransactionType.RECEIVE,
+                senderWallet.getId(), // Store sender wallet ID as transferId
+                "Received transfer from Wallet ID: " + senderWallet.getId(),
+                amount,
+                LocalDateTime.now()
+        );
+
+        return senderWallet; // Return updated sender wallet
     }
+
 
 
     @Override

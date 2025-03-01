@@ -4,6 +4,7 @@ import com.sdc.tradeo.domain.WalletTransactionType;
 import com.sdc.tradeo.model.Wallet;
 import com.sdc.tradeo.model.WalletTransaction;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public interface TransactionService {
@@ -12,8 +13,11 @@ public interface TransactionService {
             WalletTransactionType transactionType,
             Long transferId,
             String purpose,
-            Long amount
+            Long amount,
+            LocalDateTime transactionDate
     );
 
     List<WalletTransaction> getTransactionsByWallet(Wallet wallet);
+
+
 }

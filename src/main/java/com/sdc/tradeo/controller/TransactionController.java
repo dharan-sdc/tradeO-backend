@@ -17,7 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/transactions")
 public class TransactionController {
 
     @Autowired
@@ -29,7 +28,7 @@ public class TransactionController {
     @Autowired
     private WalletService walletService;
 
-    @GetMapping
+    @GetMapping("/api/transactions")
     public ResponseEntity<List<WalletTransaction>> getUserWallet(
             @RequestHeader("Authorization") String jwt) throws Exception {
 
@@ -37,6 +36,7 @@ public class TransactionController {
         Wallet wallet = walletService.getUserWallet(user);
 
         List<WalletTransaction> transactionList = transactionService.getTransactionsByWallet(wallet);
+        System.out.println("Transactions fetched: " + transactionList);
 
         return new ResponseEntity<>(transactionList, HttpStatus.ACCEPTED);
     }

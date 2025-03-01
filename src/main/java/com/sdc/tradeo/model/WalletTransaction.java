@@ -1,7 +1,6 @@
 package com.sdc.tradeo.model;
 
 import com.sdc.tradeo.domain.WalletTransactionType;
-import com.stripe.param.SetupIntentCreateParams;
 import jakarta.persistence.*;
 import lombok.Data;
 
@@ -13,7 +12,6 @@ import java.time.LocalDateTime;
 @Entity
 public class WalletTransaction {
 
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
@@ -22,20 +20,12 @@ public class WalletTransaction {
     private Wallet wallet;
 
     @Enumerated(EnumType.STRING) // Ensure proper storage for enum
-    private WalletTransactionType type;
-
-    private LocalDateTime transactionDate; // Changed from LocalDate to LocalDateTime
-
-    private Long transferId;
-
-    private String purpose;
-
-    private Long amount;
-
-    //private Timestamp timestamp;
-
     private WalletTransactionType transactionType;
 
+    private LocalDateTime transactionDate; // Changed from LocalDate to LocalDateTime
+    private Long transferId;
+    private String purpose;
+    private Long amount;
     private Timestamp timestamp; // Ensure this is correctly mapped
 
     // Getters and Setters

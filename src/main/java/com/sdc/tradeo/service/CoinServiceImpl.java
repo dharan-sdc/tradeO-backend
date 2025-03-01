@@ -30,7 +30,7 @@ public class CoinServiceImpl implements CoinService {
 
     @Override
     public List<Coin> getCoinList(int page) throws Exception {
-        String url="https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&per_page=15&page="+page;
+        String url="https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&per_page=5&page="+page;
 
         RestTemplate restTemplate = new RestTemplate();
 
@@ -136,7 +136,7 @@ public class CoinServiceImpl implements CoinService {
 
     @Override
     public String getTop50CoinsByMarketCapRank() throws Exception {
-        String url="https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&per_page=50&page=1";
+        String url="https://api.coingecko.com/api/v3/coins/markets?vs_currency=inr&per_page=2&page=1";
 
         RestTemplate restTemplate = new RestTemplate();
 
