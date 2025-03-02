@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 @Service
@@ -82,9 +83,9 @@ public class WalletServiceImpl implements WalletService {
                 senderWallet,
                 WalletTransactionType.TRANSFER,
                 receiverWallet.getId(), // Store receiver wallet ID as transferId
-                "Wallet-to-wallet transfer to Wallet ID: " + receiverWallet.getId(),
+                "Wallet-2-Wallet Transfer \n Wallet ID: " + receiverWallet.getId(),
                 amount,
-                LocalDateTime.now()
+                LocalDate.now().atStartOfDay()
         );
 
         // Record transaction for receiver
