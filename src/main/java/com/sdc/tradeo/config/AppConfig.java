@@ -39,7 +39,8 @@ public class AppConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(List.of(
                 "http://localhost:5173",
-                "http://localhost:3000"
+                "http://localhost:3000",
+                "https://tradeo-production.up.railway.app"
         )); // Add other frontend URLs if needed
 
         configuration.setAllowCredentials(true);
