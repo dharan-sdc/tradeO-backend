@@ -40,8 +40,7 @@ public class AppConfig {
         // Allowed frontend origins
         configuration.setAllowedOrigins(List.of(
                 "http://localhost:5173",
-                "http://localhost:3000",
-                "https://tradeo-production.up.railway.app"
+                "http://localhost:3000"
         ));
 
         configuration.setAllowCredentials(true); // Allow cookies & authentication headers
