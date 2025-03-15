@@ -12,6 +12,10 @@ public class TradeoApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(TradeoApplication.class, args);
+		System.out.println("Email configuration connected");
+		System.out.println("Mysql Database Connected");
+		System.out.println("Spring Boot App has started successfully!");
+		System.out.println();
 	}
 
 }
