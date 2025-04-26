@@ -12,8 +12,10 @@ import java.math.RoundingMode;
 public class Wallet {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "wallet_transaction_seq")
+    @SequenceGenerator(name = "wallet_transaction_seq", sequenceName = "wallet_transaction_seq", allocationSize = 1, initialValue = 1000)
     private Long id;
+
 
 
     @OneToOne(fetch = FetchType.LAZY)

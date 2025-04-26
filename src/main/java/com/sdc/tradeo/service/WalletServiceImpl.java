@@ -26,7 +26,7 @@ public class WalletServiceImpl implements WalletService {
     @Override
     public Wallet getUserWallet(User user) {
         Wallet wallet = walletRepository.findByUserId(user.getId());
-        if (wallet == null) { // ✅ Fixed
+        if (wallet == null) {
             wallet = new Wallet();
             wallet.setUser(user);
             wallet.setBalance(BigDecimal.ZERO);
@@ -38,7 +38,7 @@ public class WalletServiceImpl implements WalletService {
 
     @Override
     public Wallet addBalance(Wallet wallet, Long money) {
-        if (wallet.getBalance() == null) { // ✅ Fixed
+        if (wallet.getBalance() == null) {
             wallet.setBalance(BigDecimal.ZERO);
         }
         BigDecimal newBalance = wallet.getBalance().add(BigDecimal.valueOf(money));
@@ -109,7 +109,7 @@ public class WalletServiceImpl implements WalletService {
 
         if (order.getOrderType().equals(OrderType.BUY)) {
             BigDecimal newBalance = wallet.getBalance().subtract(order.getPrice());
-            if (newBalance.compareTo(BigDecimal.ZERO) < 0) { // ✅ Fixed Condition
+            if (newBalance.compareTo(BigDecimal.ZERO) < 0) {
                 throw new Exception("Insufficient funds for this transaction");
             }
             wallet.setBalance(newBalance);

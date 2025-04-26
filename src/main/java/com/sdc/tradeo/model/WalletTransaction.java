@@ -17,7 +17,9 @@ public class WalletTransaction {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "wallet_id", nullable = true) // Allow NULL values
     private Wallet wallet;
+
 
     @Enumerated(EnumType.STRING) // Ensure proper storage for enum
     private WalletTransactionType transactionType;

@@ -14,6 +14,6 @@ public class HomeController {
 
     @GetMapping("/api/home")
     public String secure(){
-        return "Welcom";
+        return "Welcome tradeo project";
     }
 }

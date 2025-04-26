@@ -39,9 +39,4 @@ public class TransactionServiceImpl implements TransactionService{
     public List<WalletTransaction> getTransactionsByWallet(Wallet wallet) {
         return walletTransactionRepository.findByWallet(wallet);
     }
-
-
-
-
-
 }

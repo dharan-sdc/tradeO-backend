@@ -3,6 +3,7 @@ package com.sdc.tradeo.service;
 import com.sdc.tradeo.model.Coin;
 import com.sdc.tradeo.model.User;
 import com.sdc.tradeo.model.WatchList;
+import com.sdc.tradeo.respository.UserRepository;
 import com.sdc.tradeo.respository.WatchListRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,13 +14,19 @@ import java.util.Optional;
 public class WatchListServiceImpl implements WatchListService{
 
     @Autowired
+    private UserRepository userRepository;
+    @Autowired
     private WatchListRepository watchListRepository;
 
     @Override
     public WatchList findUserWatchList(Long userId) throws Exception {
         WatchList watchList = watchListRepository.findByUserId(userId);
         if (watchList == null) {
-            throw new Exception("WatchList not found");
+            User user = userRepository.findById(userId)
+                    .orElseThrow(() -> new RuntimeException("User not found"));
+
+            watchList = createWatchList(user);
+            //throw new Exception("WatchList not found");
         }
         return watchList;
     }

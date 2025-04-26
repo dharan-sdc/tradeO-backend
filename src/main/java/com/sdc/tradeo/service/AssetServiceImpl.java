@@ -46,7 +46,7 @@ public class AssetServiceImpl implements AssetService{
         List<Asset> assets = assetRepository.findByUserId(userId);
 
         if (assets == null || assets.isEmpty()) {
-            return Collections.emptyList(); // ✅ Return an empty list instead of null
+            return Collections.emptyList();
         }
 
         return assets;

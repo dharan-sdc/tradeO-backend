@@ -41,9 +41,9 @@ public class EmailService {
 
         try {
             javaMailSender.send(mimeMessage);
-            System.out.println("✅ OTP Email Sent Successfully to " + email);
+            System.out.println("OTP Email Sent Successfully to " + email);
         } catch (MailException e) {
-            throw new MailSendException("❌ Failed to send OTP email: " + e.getMessage());
+            throw new MailSendException("Failed to send OTP email: " + e.getMessage());
         }
     }
 }

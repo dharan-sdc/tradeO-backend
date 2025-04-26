@@ -13,6 +13,15 @@ public class AuthResponse {
     private String message;
     private boolean isTwoFactorAuthEnabled;
     private String session;
+
+    public boolean isTwoFactorAuthEnabled() {
+        return isTwoFactorAuthEnabled;
+    }
+
+    public void setTwoFactorAuthEnabled(boolean twoFactorAuthEnabled) {
+        this.isTwoFactorAuthEnabled = twoFactorAuthEnabled;
+    }
+
     // Getter and Setter for jwt
     public String getJwt() {
         return jwt;
@@ -38,13 +47,6 @@ public class AuthResponse {
 
     public void setMessage(String message) {
         this.message = message;
-    }
-    public boolean isTwoFactorAuthEnabled() {
-        return isTwoFactorAuthEnabled;
-    }
-
-    public void setTwoFactorAuthEnabled(boolean twoFactorAuthEnabled) {
-        this.isTwoFactorAuthEnabled = twoFactorAuthEnabled;
     }
 
     public String getSession() {

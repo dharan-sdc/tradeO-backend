@@ -80,8 +80,6 @@ public class AuthController {
         String userName=user.getEmail();
         String password = user.getPassword();
 
-
-
         Authentication auth =authenticate(userName,password);
 
         SecurityContextHolder.getContext().setAuthentication(auth);
