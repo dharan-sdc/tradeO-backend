@@ -7,9 +7,9 @@ import java.sql.SQLException;
 
 public class MysqlConfig {
     public static void main(String[] args) {
-        String url = "jdbc:mysql://localhost:3306/tradeo_db";
+        String url = "jdbc:mysql://root:mcCxSFFbXmltEYSsbWTcaNKoefUWplPj@yamabiko.proxy.rlwy.net:26630/railway";
         String user = "root";
-        String password = "01010100";
+        String password = "mcCxSFFbXmltEYSsbWTcaNKoefUWplPj";
 
         try (Connection conn = DriverManager.getConnection(url, user, password)) {
             System.out.println(" Database Connected successfully!");
