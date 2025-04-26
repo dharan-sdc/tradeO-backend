@@ -39,6 +39,7 @@ public class AppConfig {
 
         // Allowed frontend origins
         configuration.setAllowedOrigins(List.of(
+                "https://tradeocoin.onrender.com",
                 "http://localhost:5173",
                 "http://localhost:3000"
         ));

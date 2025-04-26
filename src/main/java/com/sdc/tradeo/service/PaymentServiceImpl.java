@@ -121,7 +121,7 @@ public class PaymentServiceImpl implements PaymentService{
             paymentLinkRequest.put("reminder_enable", true);
 
             // Set callback URL (No callback_method needed)
-            paymentLinkRequest.put("callback_url", "http://localhost:5173/wallet?order_id=" + orderId);
+            paymentLinkRequest.put("callback_url", "https://tradeocoin.onrender.com/wallet?order_id=" + orderId);
 
             PaymentLink payment = razorpay.paymentLink.create(paymentLinkRequest);
 
@@ -146,8 +146,8 @@ public class PaymentServiceImpl implements PaymentService{
         SessionCreateParams params = SessionCreateParams.builder()
                 .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
                 .setMode(SessionCreateParams.Mode.PAYMENT)
-                .setSuccessUrl("http://localhost:5173/wallet?order_id=" + orderId)
-                .setCancelUrl("http://localhost:5173/payment/cancel")
+                .setSuccessUrl("https://tradeocoin.onrender.com/wallet?order_id=" + orderId)
+                .setCancelUrl("https://tradeocoin.onrender.com/payment/cancel")
                 .addLineItem(
                         SessionCreateParams.LineItem.builder()
                                 .setQuantity(1L)
