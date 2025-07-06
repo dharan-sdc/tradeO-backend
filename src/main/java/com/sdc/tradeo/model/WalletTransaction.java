@@ -12,9 +12,15 @@ import java.time.LocalDateTime;
 @Entity
 public class WalletTransaction {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+@Id
+@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "wallet_transaction_seq")
+@SequenceGenerator(
+    name = "wallet_transaction_seq",
+    sequenceName = "wallet_transaction_seq",
+    allocationSize = 1
+)
+private Long id;
+
 
     @ManyToOne
     @JoinColumn(name = "wallet_id", nullable = true) // Allow NULL values
