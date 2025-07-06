@@ -9,9 +9,15 @@ import lombok.Data;
 @Entity
 @Data
 public class User {
-    @Id //user id is generating automating
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+@Id
+@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "user_seq")
+@SequenceGenerator(
+    name = "user_seq",
+    sequenceName = "user_seq",
+    allocationSize = 50
+)
+private Long id;
+
 
     private String fullName;
     private String email;
