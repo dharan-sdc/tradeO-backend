@@ -119,7 +119,7 @@ public class PaymentServiceImpl implements PaymentService{
             paymentLinkRequest.put("reminder_enable", true);
 
             // Set callback URL (No callback_method needed)
-            paymentLinkRequest.put("callback_url", "https://trade-o.vercel.app/wallet?order_id=" + orderId);
+            paymentLinkRequest.put("callback_url", "https://trade-o.vercel.app/Wallet?order_id=" + orderId);
 
             PaymentLink payment = razorpay.paymentLink.create(paymentLinkRequest);
 
