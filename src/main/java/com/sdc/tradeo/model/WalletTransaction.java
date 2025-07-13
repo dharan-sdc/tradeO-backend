@@ -12,14 +12,18 @@ import java.time.LocalDateTime;
 @Entity
 public class WalletTransaction {
 
-@Id
-@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "wallet_transaction_seq")
-@SequenceGenerator(
-    name = "wallet_transaction_seq",
-    sequenceName = "wallet_transaction_seq",
-    allocationSize = 1
-)
-private Long id;
+    @Id
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "wallet_transaction_seq"
+    )
+    @SequenceGenerator(
+            name = "wallet_transaction_seq",
+            sequenceName = "wallet_transaction_seq",
+            initialValue = 1000,
+            allocationSize = 1
+    )
+    private Long id;
 
 
     @ManyToOne
