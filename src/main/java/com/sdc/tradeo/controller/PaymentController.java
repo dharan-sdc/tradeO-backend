@@ -33,7 +33,10 @@ public class PaymentController {
         PaymentOrder order = paymentService.createOrder(user, amount, paymentMethod);
         if (paymentMethod.equals(PaymentMethod.RAZORPAY)) {
             paymentResponse = paymentService.createRazorpayPaymentLink(user, amount, order.getId());
-        }
+        }else {
+        // You can customize this depending on your supported methods
+        throw new UnsupportedOperationException("Unsupported payment method: " + paymentMethod);
+    }
         return new ResponseEntity<>(paymentResponse, HttpStatus.CREATED);
     }
 }
