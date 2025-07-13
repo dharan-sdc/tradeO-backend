@@ -17,8 +17,8 @@ public interface PaymentService {
     //those-who-india-use-razorPaymentGateway
     PaymentResponse createRazorpayPaymentLink(User user, Long amount,Long orderId) throws RazorpayException;
 
-    //those-who-non-india-use-stripePaymentGateway
-    PaymentResponse createStripePaymentLink(User user, Long amount,Long orderId) throws StripeException;
+    // //those-who-non-india-use-stripePaymentGateway
+    // PaymentResponse createStripePaymentLink(User user, Long amount,Long orderId) throws StripeException;
 
 
 }
