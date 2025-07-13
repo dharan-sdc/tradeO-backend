@@ -25,14 +25,11 @@ public class PaymentServiceImpl implements PaymentService{
     @Autowired
     private PaymentOrderRepository paymentOrderRepository;
 
-    @Value("${stripe.api.key}")
-    private String stripeSecretKey;
+    
 
     @Value("${razorpay.api.key}")
     private String apiKey;
 
-    // @Value("${razorpay.api.secret}")
-    // private String apiSecretKey;
 
     @Override
     public PaymentOrder createOrder(
@@ -135,49 +132,6 @@ public class PaymentServiceImpl implements PaymentService{
             throw new RazorpayException(e.getMessage());
         }
     }
-
-
-    // @Override
-    // public PaymentResponse createStripePaymentLink(User user, Long amount, Long orderId) throws StripeException {
-    //     // Set the Stripe API Key
-    //     Stripe.apiKey = stripeSecretKey;
-
-    //     // Create Stripe Session Parameters
-    //     SessionCreateParams params = SessionCreateParams.builder()
-    //             .addPaymentMethodType(SessionCreateParams.PaymentMethodType.CARD)
-    //             .setMode(SessionCreateParams.Mode.PAYMENT)
-    //             .setSuccessUrl("https://tradeocoin.onrender.com/wallet?order_id=" + orderId)
-    //             .setCancelUrl("https://tradeocoin.onrender.com/payment/cancel")
-    //             .addLineItem(
-    //                     SessionCreateParams.LineItem.builder()
-    //                             .setQuantity(1L)
-    //                             .setPriceData(
-    //                                     SessionCreateParams.LineItem.PriceData.builder()
-    //                                             .setCurrency("inr")
-    //                                             .setUnitAmount(amount * 100) // Convert amount to paise (cents)
-    //                                             .setProductData(
-    //                                                     SessionCreateParams.LineItem.PriceData.ProductData.builder()
-    //                                                             .setName("Top up wallet")
-    //                                                             .build()
-    //                                             )
-    //                                             .build()
-    //                             )
-    //                             .build()
-    //             )
-    //             .build();
-
-    //     // Create a Stripe Session
-    //     Session session = Session.create(params);
-
-    //     // Print the session details (for debugging)
-    //     System.out.println("Session ID: " + session.getId());
-    //     System.out.println("Payment URL: " + session.getUrl());
-
-    //     // Prepare the response
-    //     PaymentResponse res = new PaymentResponse();
-    //     res.setPayment_url(session.getUrl());
-    //     return res;
-    // }
 
 
 }
